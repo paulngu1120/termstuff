@@ -1,0 +1,210 @@
+#! /bin/bash
+
+echo ' _________________________________________________'; 
+echo '|						 |';
+echo '|		Enter Test option:	 	 |';
+echo '|						 |';
+echo '|	1) Pacemaker				 |';
+echo '|	2) Websockets				 |';
+echo '|	3) Node.js compliance 	 		 |';
+echo '| 	4) Roku Node.js compliance	       	|';
+echo '|					  	 |';
+echo '|	x) Exit				         |';
+echo '|________________________________________________|';
+
+read option
+
+case $option in
+	1)
+	cd ~/bin/"Test Package"/;
+	pacelink=$(ipconfig getifaddr en0);
+	echo $pacelink:4433 | pbcopy;
+	sleep 1;
+	echo Press -Enter- to open mirror. Paste in URL field;
+	read enter;
+	open "https://qual-e.appspot.com/mirror";
+	python pacemaker.py;
+	;;
+	2)
+	cd ~/bin/"Test Package"/lt_test_runner/;
+	weblink=$(ipconfig getifaddr en0);
+	echo qual-e.appspot.com/localtransport/index.html?turl=http://$weblink:5050 | pbcopy;
+	sleep 1;	
+	echo Press -Enter- to open mirror and paste to URL field;
+	read enter;
+	open "https://qual-e.appspot.com/mirror";
+	node lt_test_runner.js;
+	;;
+	3)
+	echo  '______________________________'
+	echo '|                             |' 
+	echo '|  a) Run All                 |' 
+	echo '|  b) Individual              |' 
+	echo  '______________________________'
+	read select
+	case $select in
+		a)
+		cd ~/bin/"Test Package"/dial-reference-master/server/tests/js_tests/tests;
+		echo Enter Device IP address and Press Enter;
+		read host;
+		node tests.js --host $host --app YouTube --loglevel debug;
+		;;
+		b)
+		cd ~/bin/"Test Package"/dial-reference-master/server/tests/js_tests/tests;
+		echo Enter Device IP address and Press Enter;
+		read host;
+		declare testarr=(
+			[1]=checkStatusofSystemApp
+			[2]=discoverServerUnderTest
+			[3]=hideApplicationInHiddenState
+			[4]=hideApplicationInRunningState
+			[5]=hideInvalidApplicationInstance
+			[6]=launchApplicationInHiddenStateWithNoPayload
+			[7]=launchApplicationInHiddenStateWithPayload
+			[8]=launchApplicationInRunningStateWithNoPayload
+			[9]=launchApplicationInRunningStateWithPayload
+			[10]=launchApplicationInStoppedStateWithNoPayload
+			[11]=launchApplicationInStoppedStateWithPayload
+			[12]=launchApplicationNotRecognized
+			[13]=launchApplicationWithExcessPayload
+			[14]=launchHideStopStressTest
+			[15]=sleepTheSystemWithKeyWhenItIsRequired
+			[16]=sleepTheSystemWithNoKeyWhenItIsRequired
+			[17]=stateChangesWithoutDIAL
+			[18]=stopApplicationInHiddenState
+			[19]=stopApplicationInRunningState
+			[20]=stopApplicationInStoppedState
+			[21]=stopInvalidApplicationInstance
+		)		
+
+		echo Enter Test number from list:
+		echo "-----------------------------------"
+
+		count=1;		
+		for i in "${testarr[@]}"
+		do
+			echo "$count: $i" 
+			count=$((count+1));
+		done;
+
+		echo ""
+		echo "Enter q to quit"
+		echo "-----------------------------------"
+
+		
+		read input;	
+
+		while [ $input != 'q' ];
+		do
+			testcase=${testarr[input]};
+			node $testcase.js --host $host --app YouTube --loglevel debug;
+			echo Enter Test number from list:
+			echo "-----------------------------------"
+
+			count=1;		
+			for i in "${testarr[@]}"
+			do
+				echo "$count: $i" 
+				count=$((count+1));
+			done;
+
+			echo ""
+			echo "Enter q to quit"
+			echo "-----------------------------------"
+			read input;	
+		done;	
+		;;
+		esac;;
+		4)
+		echo  '______________________________'
+		echo '|                             |' 
+		echo '|  a) Run All                 |' 
+		echo '|  b) Individual              |' 
+		echo  '______________________________'
+		read select
+		case $select in
+			a)
+			cd ~/bin/dial_reference_roku/dial-reference-master/server/tests/js_tests/tests;
+			echo Enter Device IP address and Press Enter;
+			read host;
+			node tests.js --host $host --app YouTube --loglevel debug;
+			;;
+			b)
+			cd ~/bin/dial_reference_roku/dial-reference-master/server/tests/js_tests/tests;
+			echo Enter Device IP address and Press Enter;
+			read host;
+			declare testarr=(
+				[1]=checkStatusofSystemApp
+				[2]=discoverServerUnderTest
+				[3]=hideApplicationInHiddenState
+				[4]=hideApplicationInRunningState
+				[5]=hideInvalidApplicationInstance
+				[6]=launchApplicationInHiddenStateWithNoPayload
+				[7]=launchApplicationInHiddenStateWithPayload
+				[8]=launchApplicationInRunningStateWithNoPayload
+				[9]=launchApplicationInRunningStateWithPayload
+				[10]=launchApplicationInStoppedStateWithNoPayload
+				[11]=launchApplicationInStoppedStateWithPayload
+				[12]=launchApplicationNotRecognized
+				[13]=launchApplicationWithExcessPayload
+				[14]=launchHideStopStressTest
+				[15]=sleepTheSystemWithKeyWhenItIsRequired
+				[16]=sleepTheSystemWithNoKeyWhenItIsRequired
+				[17]=stateChangesWithoutDIAL
+				[18]=stopApplicationInHiddenState
+				[19]=stopApplicationInRunningState
+				[20]=stopApplicationInStoppedState
+				[21]=stopInvalidApplicationInstance
+			)		
+	
+			echo Enter Test number from list:
+			echo "-----------------------------------"
+	
+			count=1;		
+			for i in "${testarr[@]}"
+			do
+				echo "$count: $i" 
+				count=$((count+1));
+			done;
+	
+			echo ""
+			echo "Enter q to quit"
+			echo "-----------------------------------"
+	
+			
+			read input;	
+	
+			while [ $input != 'q' ];
+			do
+				testcase=${testarr[input]};
+				node $testcase.js --host $host --app YouTube --loglevel debug;
+				echo Enter Test number from list:
+				echo "-----------------------------------"
+	
+				count=1;		
+				for i in "${testarr[@]}"
+				do
+					echo "$count: $i" 
+					count=$((count+1));
+				done;
+	
+				echo ""
+				echo "Enter q to quit"
+				echo "-----------------------------------"
+				read input;	
+			done;	
+			;;
+		esac
+		;;
+		x|X)
+		echo Bye!
+		;;
+		*)
+		echo Enter correct selection!;
+		echo \'x\' to Exit;
+		read option;
+		continue;
+		;;
+esac;
+
+exit 155;

@@ -1,0 +1,10 @@
+#! /bin/bash
+
+open https://www.gmail.com;
+open https://chat.google.com;
+open https://drive.google.com;
+sleep 2;
+open http://go/certqueue;
+open http://go/gstor2;
+open http://go/gstor2;
+
