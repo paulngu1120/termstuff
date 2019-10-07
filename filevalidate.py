@@ -1,13 +1,12 @@
 #! /usr/bin/python
 
-import sys, os.path, glob, re, fnmatch
+import glob, os.path, argparse 
 
-if (len(sys.argv)>1):
-    start_location=str(sys.argv[1])
-else:
-    start_location=raw_input("Enter location of pre-cert package")
+parser=argparse.ArgumentParser(description='Pre-cert directory')
+parser.add_argument('pkgdir', type=str, help='Input directory for pre-cert package')
+args=parser.parse_args()
 
-pkgpath=os.path.expanduser(start_location)
+pkgpath=os.path.expanduser(args.pkgdir)	
 
 #Directory names
 main_dir=['Misc', 'YouTube_Application', 'DIAL', 'YTS']
