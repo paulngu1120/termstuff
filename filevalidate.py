@@ -2,7 +2,7 @@
 
 import glob, os.path, argparse 
 
-parser=argparse.ArgumentParser(description='Pre-cert directory')
+parser=argparse.ArgumentParser(description='Pre-certification file validate')
 parser.add_argument('pkgdir', type=str, help='Input directory for pre-cert package')
 args=parser.parse_args()
 
@@ -19,7 +19,7 @@ yts_man_file=['web_audio','dual_video', 'resizing', 'localization', 'key_event',
 yts_man_cookies_file=['cookies_0hrs', 'cookies_24hrs', 'cookies_72hrs']
 yts_man_DRM_file=['drm', 'purchased_movie', 'widevine']
 yts_man_DPBR_file=['runtime_change']
-yts_man_IPBR_file=['0_25x', '0_5x', '1_0x', '1_25x', '1_5x', '2_0x']
+yts_man_IPBR_file=['0_25x', '0_5x','0_75', '1_0x', '1_25x', '1_5x', '1_75x', '2_0x']
 yts_man_webp_file=['animated_webp', 'webp', 'youtube_app_with_webp']
 yts_man_webgl_file=['webgl_vp9']
 yts_man_cobaltm2m_file=['720p', '1080p', '1440p', '2160p']
