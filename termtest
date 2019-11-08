@@ -1,5 +1,29 @@
 #! /bin/bash
 
+declare testarr=(
+	[1]=sleepTheSystemWithNoKeyWhenItIsRequired
+	[2]=sleepTheSystemWithKeyWhenItIsRequired
+	[3]=discoverServerUnderTest
+	[4]=launchApplicationNotRecognized
+	[5]=launchApplicationInRunningStateWithNoPayload
+	[6]=launchApplicationInRunningStateWithPayload
+	[7]=launchApplicationInStoppedStateWithPayload
+	[8]=launchApplicationInStoppedStateWithNoPayload
+	[9]=launchApplicationInHiddenStateWithNoPayload
+	[10]=launchApplicationInHiddenStateWithPayload
+	[11]=launchApplicationWithExcessPayload
+	[12]=stopInvalidApplicationInstance
+	[13]=stopApplicationInRunningState
+	[14]=stopApplicationInStoppedState
+	[15]=stopApplicationInHiddenState
+	[16]=hideInvalidApplicationInstance
+	[17]=hideApplicationInHiddenState
+	[18]=hideApplicationInRunningState
+	[19]=stateChangesWithoutDIAL
+	[20]=launchHideStopStressTest
+	[21]=checkStatusofSystemApp
+)		
+
 echo ' _________________________________________________'; 
 echo '|						 |';
 echo '|		Enter Test option:	 	 |';
@@ -16,24 +40,22 @@ read option
 
 case $option in
 	1)
-	cd ~/bin/"Test Package"/;
 	pacelink=$(ipconfig getifaddr en0);
 	echo $pacelink:4433 | pbcopy;
 	sleep 1;
 	echo Press -Enter- to open mirror. Paste in URL field;
 	read enter;
 	open "https://qual-e.appspot.com/mirror";
-	python pacemaker.py;
+	python ~/bin/"Test Package"/pacemaker.py;
 	;;
 	2)
-	cd ~/bin/"Test Package"/lt_test_runner/;
 	weblink=$(ipconfig getifaddr en0);
 	echo qual-e.appspot.com/localtransport/index.html?turl=http://$weblink:5050 | pbcopy;
 	sleep 1;	
 	echo Press -Enter- to open mirror and paste to URL field;
 	read enter;
 	open "https://qual-e.appspot.com/mirror";
-	node lt_test_runner.js;
+	node ~/bin/"Test Package"/lt_test_runner/lt_test_runner.js;
 	;;
 	3)
 	echo  '______________________________'
@@ -43,40 +65,16 @@ case $option in
 	echo  '______________________________'
 	read select
 	case $select in
+		#run all node.js
 		a)
-		cd ~/bin/"Test Package"/dial-reference-master/server/tests/js_tests/tests;
 		echo Enter Device IP address and Press Enter;
 		read host;
-		node tests.js --host $host --app YouTube --loglevel debug;
+		node ~/bin/"Test Package"/dial-reference-master/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
 		;;
+		#Individual loop
 		b)
-		cd ~/bin/"Test Package"/dial-reference-master/server/tests/js_tests/tests;
 		echo Enter Device IP address and Press Enter;
 		read host;
-		declare testarr=(
-			[1]=checkStatusofSystemApp
-			[2]=discoverServerUnderTest
-			[3]=hideApplicationInHiddenState
-			[4]=hideApplicationInRunningState
-			[5]=hideInvalidApplicationInstance
-			[6]=launchApplicationInHiddenStateWithNoPayload
-			[7]=launchApplicationInHiddenStateWithPayload
-			[8]=launchApplicationInRunningStateWithNoPayload
-			[9]=launchApplicationInRunningStateWithPayload
-			[10]=launchApplicationInStoppedStateWithNoPayload
-			[11]=launchApplicationInStoppedStateWithPayload
-			[12]=launchApplicationNotRecognized
-			[13]=launchApplicationWithExcessPayload
-			[14]=launchHideStopStressTest
-			[15]=sleepTheSystemWithKeyWhenItIsRequired
-			[16]=sleepTheSystemWithNoKeyWhenItIsRequired
-			[17]=stateChangesWithoutDIAL
-			[18]=stopApplicationInHiddenState
-			[19]=stopApplicationInRunningState
-			[20]=stopApplicationInStoppedState
-			[21]=stopInvalidApplicationInstance
-		)		
-
 		echo Enter Test number from list:
 		echo "-----------------------------------"
 
@@ -91,13 +89,12 @@ case $option in
 		echo "Enter q to quit"
 		echo "-----------------------------------"
 
-		
 		read input;	
 
 		while [ $input != 'q' ];
 		do
 			testcase=${testarr[input]};
-			node $testcase.js --host $host --app YouTube --loglevel debug;
+			node ~/bin/"Test Package"/dial-reference-master/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
 			echo Enter Test number from list:
 			echo "-----------------------------------"
 
@@ -124,39 +121,13 @@ case $option in
 		read select
 		case $select in
 			a)
-			cd ~/bin/dial_reference_roku/dial-reference-master/server/tests/js_tests/tests;
 			echo Enter Device IP address and Press Enter;
 			read host;
-			node tests.js --host $host --app YouTube --loglevel debug;
+			node ~/bin/dial_reference_roku/dial-reference-master/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
 			;;
 			b)
-			cd ~/bin/dial_reference_roku/dial-reference-master/server/tests/js_tests/tests;
 			echo Enter Device IP address and Press Enter;
 			read host;
-			declare testarr=(
-				[1]=checkStatusofSystemApp
-				[2]=discoverServerUnderTest
-				[3]=hideApplicationInHiddenState
-				[4]=hideApplicationInRunningState
-				[5]=hideInvalidApplicationInstance
-				[6]=launchApplicationInHiddenStateWithNoPayload
-				[7]=launchApplicationInHiddenStateWithPayload
-				[8]=launchApplicationInRunningStateWithNoPayload
-				[9]=launchApplicationInRunningStateWithPayload
-				[10]=launchApplicationInStoppedStateWithNoPayload
-				[11]=launchApplicationInStoppedStateWithPayload
-				[12]=launchApplicationNotRecognized
-				[13]=launchApplicationWithExcessPayload
-				[14]=launchHideStopStressTest
-				[15]=sleepTheSystemWithKeyWhenItIsRequired
-				[16]=sleepTheSystemWithNoKeyWhenItIsRequired
-				[17]=stateChangesWithoutDIAL
-				[18]=stopApplicationInHiddenState
-				[19]=stopApplicationInRunningState
-				[20]=stopApplicationInStoppedState
-				[21]=stopInvalidApplicationInstance
-			)		
-	
 			echo Enter Test number from list:
 			echo "-----------------------------------"
 	
@@ -170,14 +141,13 @@ case $option in
 			echo ""
 			echo "Enter q to quit"
 			echo "-----------------------------------"
-	
 			
 			read input;	
 	
 			while [ $input != 'q' ];
 			do
 				testcase=${testarr[input]};
-				node $testcase.js --host $host --app YouTube --loglevel debug;
+				node ~/bin/dial_reference_roku/dial-reference-master/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
 				echo Enter Test number from list:
 				echo "-----------------------------------"
 	

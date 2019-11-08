@@ -1,0 +1,22 @@
+[2019-11-08T11:12:42-08:00] RESULT               : TEST FAILED Error: Could not discover host 192.168.86.20
+
+[2019-11-08T11:12:47-08:00] RESULT               : TEST FAILED Error: Could not discover host 192.168.86.20
+
+[2019-11-08T11:12:47-08:00] TEST                 : discoverServerUnderTest.js
+[2019-11-08T11:12:47-08:00] DESCRIPTION          : Perform DIAL discovery and ensure that the server under test is discovered
+[2019-11-08T11:12:47-08:00] DEBUG                : Performing discovery ..
+[2019-11-08T11:12:52-08:00] DEBUG                : Did not find 192.168.86.20 in discovered list of servers
+[2019-11-08T11:12:52-08:00] RESULT               : TEST FAILED Error: DIAL client was not able to discover the server under test : 192.168.86.20
+
+[2019-11-08T11:12:52-08:00] TEST                 : launchApplicationNotRecognized.js
+[2019-11-08T11:12:52-08:00] DESCRIPTION          : Launch an application that is not recognized by DIAL server and check for response code 404
+[2019-11-08T11:12:57-08:00] RESULT               : TEST FAILED Error: Could not discover host 192.168.86.20
+
+[2019-11-08T11:12:57-08:00] TEST                 : launchApplicationInRunningStateWithNoPayload.js
+[2019-11-08T11:12:57-08:00] DESCRIPTION          : Launch YouTube without payload using DIAL server when application is already running and check for response code 201
+[2019-11-08T11:12:57-08:00] DEBUG                : Querying application state
+[2019-11-08T11:13:02-08:00] RESULT               : TEST FAILED Error: Could not discover host 192.168.86.20
+
+[2019-11-08T11:13:02-08:00] TEST                 : launchApplicationInRunningStateWithPayload.js
+[2019-11-08T11:13:02-08:00] DESCRIPTION          : Launch YouTube with payload using DIAL server when application is already running and check for response code 201
+[2019-11-08T11:13:02-08:00] DEBUG                : Querying application state
