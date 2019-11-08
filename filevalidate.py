@@ -1,3 +1,5 @@
+#YT 2020 pre-certification check
+#Tue Nov  5 11:35:13 PST 2019
 #! /usr/bin/python
 
 import glob, os.path, argparse 
@@ -15,7 +17,7 @@ yts_man_dir=['DRM', 'cobalt_map_to_mesh', 'Initial_playbackRate', 'Dynamic_playb
 yt_app_dir=['Language', 'Performance']
 
 #File names
-yts_man_file=['web_audio','dual_video', 'resizing', 'localization', 'key_event', 'fonts', 'fetch_api', 'current_time', 'application_lifecycle_api', 'adaptive_bit_rate']
+yts_man_file=['web_audio','dual_video', 'resizing', 'localization', 'key_event', 'fonts', 'fetch_api', 'current_time', 'application_lifecycle_api', 'adaptive_bit_rate', 'device_authentication', 'update_storage_acknowledgement']
 yts_man_cookies_file=['cookies_0hrs', 'cookies_24hrs', 'cookies_72hrs']
 yts_man_DRM_file=['drm', 'purchased_movie', 'widevine']
 yts_man_DPBR_file=['runtime_change']
@@ -23,10 +25,10 @@ yts_man_IPBR_file=['0_25x', '0_5x','0_75', '1_0x', '1_25x', '1_5x', '1_75x', '2_
 yts_man_webp_file=['animated_webp', 'webp', 'youtube_app_with_webp']
 yts_man_webgl_file=['webgl_vp9']
 yts_man_cobaltm2m_file=['720p', '1080p', '1440p', '2160p']
-yts_auto_file=['cobalt_spherical_tests', 'css_conformance_tests', 'dom_chardata', 'dom_css_tests', 'dom_document_tests', 'eme_conformance_tests', 'format_support_tests', 'functional_tests', 'html_dom_element_tests', 'mse_conformance_tests', 'playback_performance_tests', 'progressive_tests']
-yt_dial_file=['additionalData_browser', 'additionalData_inapp', 'dial_inappcast_vol', 'menu_inappcast_vol', 'multicast_seek', 'oobe', 'remote_inappcast_vol', 'wolan_25hrs', 'wowlan_25hrs', 'dial_unit_tests']
+yts_auto_file=['cobalt_spherical_tests', 'css_conformance_tests', 'dom_chardata', 'dom_css_tests', 'dom_document_tests', 'eme_conformance_tests', 'format_support_tests', 'functional_tests', 'html_dom_element_tests', 'mse_conformance_tests', 'progressive_tests', 'vp9_sfr_tests', 'h264_sfr_tests', 'widevine_hfr_tests', 'vp9_widevine_sfr_tests', 'h264_widevine_sfr_tests', 'hfr_tests', 'av1_sfr_tests']
+yt_dial_file=['additionalData_browser', 'additionalData_inapp', 'dial_inappcast_vol', 'menu_inappcast_vol', 'multicast_seek', 'oobe', 'remote_inappcast_vol', 'wolan_25hrs', 'wowlan_25hrs', 'dial_unit_tests', 'post_parameters_while_running']
 yt_misc_file=['websockets', 'yt_logo']
-yt_app_file=['3d_video','360_support', 'aspect_ratio', 'high_bitrate', 'high_frame_rate', 'hlg_hdr_support', 'in_app_exit', 'launch_menu', 'launch_remote', 'launch_voice', 'live_stream_drm_key_rotation', 'live_stream_support_vp9', 'live_stream_support', 'network_interface_switching', 'pq_hdr_support', 'signin_persistence', 'system_wide_exit', 'user_agent', 'visual_av_sync_test', 'visual_inspection', 'vp9_support', 'web_audio_navigation_sounds']
+yt_app_file=['3d_video','360_support', 'aspect_ratio', 'high_bitrate', 'high_frame_rate', 'hlg_hdr_support', 'in_app_exit', 'launch_menu', 'launch_remote', 'launch_voice', 'live_stream_drm_key_rotation', 'live_stream_support_vp9', 'live_stream_support', 'network_interface_switching', 'pq_hdr_support', 'signin_persistence', 'system_wide_exit', 'user_agent', 'visual_av_sync_test', 'vp9_support', 'web_audio_navigation_sounds']
 yt_app_lang_file=['language_settings', 'language_youtube']
 yt_app_perf_file=['automated_performance_latencies', 'loading_time', 'observed_performance_latencies_system_functions', 'ui_frame_rate_stress_test', 'youtube_performance_after', 'youtube_performance_before', '12hr_input_endurance', '4hr_endurance'] 
 yt_app_speech_file=['storage_acknowledgement.txt', 'soft_mic_button', 'hard_mic_button', 'condition_query_outside_youtube', 'condition_query_inside_youtube']
