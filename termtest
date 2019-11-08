@@ -30,8 +30,9 @@ echo '|		Enter Test option:	 	 |';
 echo '|						 |';
 echo '|	1) Pacemaker				 |';
 echo '|	2) Websockets				 |';
-echo '|	3) Node.js compliance 	 		 |';
-echo '| 	4) Roku Node.js compliance	       	|';
+echo '|	3) Node.js compliance(depreciated) 	 |';
+echo '| 	4) Node.js compliance(oct2019)           |';
+echo '| 	5) Roku Node.js compliance	       	 |';
 echo '|					  	 |';
 echo '|	x) Exit				         |';
 echo '|________________________________________________|';
@@ -109,61 +110,116 @@ case $option in
 			echo "Enter q to quit"
 			echo "-----------------------------------"
 			read input;	
-		done;	
+	done;	
+	;;
+	esac;;
+	4)
+	echo  '______________________________'
+	echo '|                             |' 
+	echo '|  a) Run All                 |' 
+	echo '|  b) Individual              |' 
+	echo  '______________________________'
+	read select
+	case $select in
+		#run all node.js
+		a)
+		echo Enter Device IP address and Press Enter;
+		read host;
+		node ~/bin/"Test Package"/dial-reference/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
 		;;
-		esac;;
-		4)
-		echo  '______________________________'
-		echo '|                             |' 
-		echo '|  a) Run All                 |' 
-		echo '|  b) Individual              |' 
-		echo  '______________________________'
-		read select
-		case $select in
-			a)
-			echo Enter Device IP address and Press Enter;
-			read host;
-			node ~/bin/dial_reference_roku/dial-reference-master/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
-			;;
-			b)
-			echo Enter Device IP address and Press Enter;
-			read host;
+		#Individual loop
+		b)
+		echo Enter Device IP address and Press Enter;
+		read host;
+		echo Enter Test number from list:
+		echo "-----------------------------------"
+
+		count=1;		
+		for i in "${testarr[@]}"
+		do
+			echo "$count: $i" 
+			count=$((count+1));
+		done;
+
+		echo ""
+		echo "Enter q to quit"
+		echo "-----------------------------------"
+
+		read input;	
+
+		while [ $input != 'q' ];
+		do
+			testcase=${testarr[input]};
+			node ~/bin/"Test Package"/dial-reference/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
 			echo Enter Test number from list:
 			echo "-----------------------------------"
-	
+
 			count=1;		
 			for i in "${testarr[@]}"
 			do
 				echo "$count: $i" 
 				count=$((count+1));
 			done;
-	
+
 			echo ""
 			echo "Enter q to quit"
 			echo "-----------------------------------"
-			
 			read input;	
+	done;	
+	;;
+	esac;;
+	5)
+	echo  '______________________________'
+	echo '|                             |' 
+	echo '|  a) Run All                 |' 
+	echo '|  b) Individual              |' 
+	echo  '______________________________'
+	read select
+	case $select in
+		a)
+		echo Enter Device IP address and Press Enter;
+		read host;
+		node ~/bin/"Test Package"/dial_reference_roku/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
+		;;
+		b)
+		echo Enter Device IP address and Press Enter;
+		read host;
+		echo Enter Test number from list:
+		echo "-----------------------------------"
 	
-			while [ $input != 'q' ];
+		count=1;		
+		for i in "${testarr[@]}"
+	do
+			echo "$count: $i" 
+			count=$((count+1));
+		done;
+
+		echo ""
+		echo "Enter q to quit"
+		echo "-----------------------------------"
+		
+		read input;	
+
+		while [ $input != 'q' ];
+		do
+			testcase=${testarr[input]};
+			node ~/bin/"Test Package"/dial_reference_roku/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
+			echo Enter Test number from list:
+			echo "-----------------------------------"
+
+			count=1;		
+			for i in "${testarr[@]}"
 			do
-				testcase=${testarr[input]};
-				node ~/bin/dial_reference_roku/dial-reference-master/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
-				echo Enter Test number from list:
-				echo "-----------------------------------"
-	
-				count=1;		
-				for i in "${testarr[@]}"
-				do
-					echo "$count: $i" 
-					count=$((count+1));
-				done;
-	
-				echo ""
-				echo "Enter q to quit"
-				echo "-----------------------------------"
-				read input;	
-			done;	
-			;;
+				echo "$count: $i" 
+				count=$((count+1));
+			done;
+
+			echo ""
+			echo "Enter q to quit"
+			echo "-----------------------------------"
+			read input;	
+		done;	
+		;;
 		esac
 		;;
 		x|X)

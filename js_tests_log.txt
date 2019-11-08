@@ -1,22 +1,89 @@
-[2019-11-08T11:12:42-08:00] RESULT               : TEST FAILED Error: Could not discover host 192.168.86.20
+[2019-11-08T13:40:40-08:00] TEST                 : sleepTheSystemWithNoKeyWhenItIsRequired.js
+[2019-11-08T13:40:40-08:00] DESCRIPTION          : Sleep the system using DIAL server and key is required but is not provided and check for response code 403.
+[2019-11-08T13:40:40-08:00] RESULT               : TEST FAILED Error: Error sleeping system without providing required key.  Expected to receive a 403 from the DIAL server but instead received 400
 
-[2019-11-08T11:12:47-08:00] RESULT               : TEST FAILED Error: Could not discover host 192.168.86.20
+[2019-11-08T13:40:40-08:00] TEST                 : sleepTheSystemWithKeyWhenItIsRequired.js
+[2019-11-08T13:40:40-08:00] DESCRIPTION          : Sleep the system using DIAL server and key is required and is provided. Expect response code 200.
+[2019-11-08T13:40:40-08:00] RESULT               : TEST FAILED Error: Error sleeping system while providing required key.  Expected to receive a 200 from the DIAL server but instead received 400
 
-[2019-11-08T11:12:47-08:00] TEST                 : discoverServerUnderTest.js
-[2019-11-08T11:12:47-08:00] DESCRIPTION          : Perform DIAL discovery and ensure that the server under test is discovered
-[2019-11-08T11:12:47-08:00] DEBUG                : Performing discovery ..
-[2019-11-08T11:12:52-08:00] DEBUG                : Did not find 192.168.86.20 in discovered list of servers
-[2019-11-08T11:12:52-08:00] RESULT               : TEST FAILED Error: DIAL client was not able to discover the server under test : 192.168.86.20
+[2019-11-08T13:40:40-08:00] TEST                 : discoverServerUnderTest.js
+[2019-11-08T13:40:40-08:00] DESCRIPTION          : Perform DIAL discovery and ensure that the server under test is discovered
+[2019-11-08T13:40:40-08:00] DEBUG                : Performing discovery ..
+[2019-11-08T13:40:45-08:00] DEBUG                : Found 192.168.1.65 in discovered list of servers
+[2019-11-08T13:40:45-08:00] DEBUG                : Found 192.168.1.65 in discovered list of servers
+[2019-11-08T13:40:45-08:00] RESULT               : TEST PASSED
 
-[2019-11-08T11:12:52-08:00] TEST                 : launchApplicationNotRecognized.js
-[2019-11-08T11:12:52-08:00] DESCRIPTION          : Launch an application that is not recognized by DIAL server and check for response code 404
-[2019-11-08T11:12:57-08:00] RESULT               : TEST FAILED Error: Could not discover host 192.168.86.20
+[2019-11-08T13:40:45-08:00] TEST                 : launchApplicationNotRecognized.js
+[2019-11-08T13:40:45-08:00] DESCRIPTION          : Launch an application that is not recognized by DIAL server and check for response code 404
+[2019-11-08T13:40:45-08:00] RESULT               : TEST PASSED
 
-[2019-11-08T11:12:57-08:00] TEST                 : launchApplicationInRunningStateWithNoPayload.js
-[2019-11-08T11:12:57-08:00] DESCRIPTION          : Launch YouTube without payload using DIAL server when application is already running and check for response code 201
-[2019-11-08T11:12:57-08:00] DEBUG                : Querying application state
-[2019-11-08T11:13:02-08:00] RESULT               : TEST FAILED Error: Could not discover host 192.168.86.20
+[2019-11-08T13:40:45-08:00] TEST                 : launchApplicationInRunningStateWithNoPayload.js
+[2019-11-08T13:40:45-08:00] DESCRIPTION          : Launch YouTube without payload using DIAL server when application is already running and check for response code 201
+[2019-11-08T13:40:45-08:00] DEBUG                : Querying application state
+[2019-11-08T13:40:45-08:00] DEBUG                : Application is in stopped state
+[2019-11-08T13:40:45-08:00] DEBUG                : Launching application ..
+[2019-11-08T13:40:47-08:00] DEBUG                : Wait for 5000 ms for state change to happen
+[2019-11-08T13:40:52-08:00] DEBUG                : Querying application state
+[2019-11-08T13:40:52-08:00] RESULT               : TEST FAILED Error: There was a problem extracting one or more fields from application status. Status returned : 
+<?xml version="1.0" encoding="UTF-8" ?><service dialVer="2.1" xmlns="urn:dial-multiscreen-org:schemas:dial">
+	<name>YouTube</name>
+	<options allowStop="true"/>
+	<state>running</state>
+	<link href="run" rel="run"/>
+</service>
 
-[2019-11-08T11:13:02-08:00] TEST                 : launchApplicationInRunningStateWithPayload.js
-[2019-11-08T11:13:02-08:00] DESCRIPTION          : Launch YouTube with payload using DIAL server when application is already running and check for response code 201
-[2019-11-08T11:13:02-08:00] DEBUG                : Querying application state
+
+[2019-11-08T13:40:52-08:00] TEST                 : launchApplicationInRunningStateWithPayload.js
+[2019-11-08T13:40:52-08:00] DESCRIPTION          : Launch YouTube with payload using DIAL server when application is already running and check for response code 201
+[2019-11-08T13:40:52-08:00] DEBUG                : Querying application state
+[2019-11-08T13:40:52-08:00] RESULT               : TEST FAILED Error: There was a problem extracting one or more fields from application status. Status returned : 
+<?xml version="1.0" encoding="UTF-8" ?><service dialVer="2.1" xmlns="urn:dial-multiscreen-org:schemas:dial">
+	<name>YouTube</name>
+	<options allowStop="true"/>
+	<state>running</state>
+	<link href="run" rel="run"/>
+</service>
+
+
+[2019-11-08T13:40:52-08:00] TEST                 : launchApplicationInStoppedStateWithPayload.js
+[2019-11-08T13:40:52-08:00] DESCRIPTION          : Launch YouTube application with payload using DIAL server when the application is in STOPPED state and expect response code 201
+[2019-11-08T13:40:52-08:00] DEBUG                : Querying application state ..
+[2019-11-08T13:40:52-08:00] RESULT               : TEST FAILED Error: There was a problem extracting one or more fields from application status. Status returned : 
+<?xml version="1.0" encoding="UTF-8" ?><service dialVer="2.1" xmlns="urn:dial-multiscreen-org:schemas:dial">
+	<name>YouTube</name>
+	<options allowStop="true"/>
+	<state>running</state>
+	<link href="run" rel="run"/>
+</service>
+
+
+[2019-11-08T13:40:52-08:00] TEST                 : launchApplicationInHiddenStateWithNoPayload.js
+[2019-11-08T13:40:52-08:00] DESCRIPTION          : Launch YouTube application using DIAL server when app is in hidden state and check for response code 201 
+[2019-11-08T13:40:52-08:00] DEBUG                : Querying application status ..
+[2019-11-08T13:40:52-08:00] RESULT               : TEST FAILED Error: There was a problem extracting one or more fields from application status. Status returned : 
+<?xml version="1.0" encoding="UTF-8" ?><service dialVer="2.1" xmlns="urn:dial-multiscreen-org:schemas:dial">
+	<name>YouTube</name>
+	<options allowStop="true"/>
+	<state>running</state>
+	<link href="run" rel="run"/>
+</service>
+
+
+[2019-11-08T13:40:52-08:00] TEST                 : launchApplicationInHiddenStateWithPayload.js
+[2019-11-08T13:40:52-08:00] DESCRIPTION          : Launch YouTube application with payload using DIAL server when app is in hidden state and check for response code 201 
+[2019-11-08T13:40:52-08:00] DEBUG                : Querying application status ..
+[2019-11-08T13:40:52-08:00] RESULT               : TEST FAILED Error: There was a problem extracting one or more fields from application status. Status returned : 
+<?xml version="1.0" encoding="UTF-8" ?><service dialVer="2.1" xmlns="urn:dial-multiscreen-org:schemas:dial">
+	<name>YouTube</name>
+	<options allowStop="true"/>
+	<state>running</state>
+	<link href="run" rel="run"/>
+</service>
+
+
+[2019-11-08T13:40:52-08:00] TEST                 : launchApplicationWithExcessPayload.js
+[2019-11-08T13:40:52-08:00] DESCRIPTION          : Try to launch YouTube application with excess payload and ensure DIAL server returns response code 413
+[2019-11-08T13:40:57-08:00] RESULT               : TEST FAILED Error: Tried to launch YouTube with excess payload. Expected statusCode: 413 but got 201
+
+[2019-11-08T13:40:57-08:00] TEST                 : stopInvalidApplicationInstance.js
+[2019-11-08T13:40:57-08:00] DESCRIPTION          : Try to stop invalid YouTube application instance and check for DIAL server response code 404
