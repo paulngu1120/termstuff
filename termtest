@@ -31,8 +31,7 @@ echo '|						 |';
 echo '|	1) Pacemaker				 |';
 echo '|	2) Websockets				 |';
 echo '|	3) Node.js compliance(depreciated) 	 |';
-echo '| 	4) Node.js compliance(oct2019)           |';
-echo '| 	5) Roku Node.js compliance	       	 |';
+echo '| 	4) Node.js compliance(2020)        	 |';
 echo '|					  	 |';
 echo '|	x) Exit				         |';
 echo '|________________________________________________|';
@@ -70,7 +69,7 @@ case $option in
 		a)
 		echo Enter Device IP address and Press Enter;
 		read host;
-		node ~/bin/"Test Package"/dial-reference-master/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
+		node ~/bin/"Test Package"/dial-reference-2019/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
 		;;
 		#Individual loop
 		b)
@@ -95,7 +94,7 @@ case $option in
 		while [ $input != 'q' ];
 		do
 			testcase=${testarr[input]};
-			node ~/bin/"Test Package"/dial-reference-master/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
+			node ~/bin/"Test Package"/dial-reference-2019/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
 			echo Enter Test number from list:
 			echo "-----------------------------------"
 
@@ -125,7 +124,7 @@ case $option in
 		a)
 		echo Enter Device IP address and Press Enter;
 		read host;
-		node ~/bin/"Test Package"/dial-reference/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
+		node ~/bin/"Test Package"/dial-reference-2020/server/tests/js_tests/tests/yt_cert_tests.js --host $host --app YouTube --loglevel debug;
 		;;
 		#Individual loop
 		b)
@@ -150,7 +149,7 @@ case $option in
 		while [ $input != 'q' ];
 		do
 			testcase=${testarr[input]};
-			node ~/bin/"Test Package"/dial-reference/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
+			node ~/bin/"Test Package"/dial-reference-2020/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
 			echo Enter Test number from list:
 			echo "-----------------------------------"
 
@@ -168,69 +167,15 @@ case $option in
 	done;	
 	;;
 	esac;;
-	5)
-	echo  '______________________________'
-	echo '|                             |' 
-	echo '|  a) Run All                 |' 
-	echo '|  b) Individual              |' 
-	echo  '______________________________'
-	read select
-	case $select in
-		a)
-		echo Enter Device IP address and Press Enter;
-		read host;
-		node ~/bin/"Test Package"/dial_reference_roku/server/tests/js_tests/tests/tests.js --host $host --app YouTube --loglevel debug;
-		;;
-		b)
-		echo Enter Device IP address and Press Enter;
-		read host;
-		echo Enter Test number from list:
-		echo "-----------------------------------"
-	
-		count=1;		
-		for i in "${testarr[@]}"
-	do
-			echo "$count: $i" 
-			count=$((count+1));
-		done;
-
-		echo ""
-		echo "Enter q to quit"
-		echo "-----------------------------------"
-		
-		read input;	
-
-		while [ $input != 'q' ];
-		do
-			testcase=${testarr[input]};
-			node ~/bin/"Test Package"/dial_reference_roku/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
-			echo Enter Test number from list:
-			echo "-----------------------------------"
-
-			count=1;		
-			for i in "${testarr[@]}"
-			do
-				echo "$count: $i" 
-				count=$((count+1));
-			done;
-
-			echo ""
-			echo "Enter q to quit"
-			echo "-----------------------------------"
-			read input;	
-		done;	
-		;;
-		esac
-		;;
-		x|X)
-		echo Bye!
-		;;
-		*)
-		echo Enter correct selection!;
-		echo \'x\' to Exit;
-		read option;
-		continue;
-		;;
+	x|X)
+	echo Bye!
+	;;
+	*)
+	echo Enter correct selection!;
+	echo \'x\' to Exit;
+	read option;
+	continue;
+	;;
 esac;
 
 exit 155;
