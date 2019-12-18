@@ -1,5 +1,6 @@
 #! /bin/bash
 
+#list of node tests
 declare testarr=(
 	[1]=sleepTheSystemWithNoKeyWhenItIsRequired
 	[2]=sleepTheSystemWithKeyWhenItIsRequired
@@ -24,6 +25,47 @@ declare testarr=(
 	[21]=checkStatusofSystemApp
 )		
 
+#display all individual tests in array
+function list_tests(){
+	count=1;		
+	for i in "${testarr[@]}"
+	do
+		echo "$count: $i" 
+		count=$((count+1));
+	done;
+}
+
+#run all YT DIAL 2.2 tests with debug log 
+function run_all(){
+	node ~/bin/"Test Package"/dial-reference-2020/server/tests/js_tests/tests/yt_cert_tests.js --host $host --app $1 --loglevel debug;
+}
+
+#running individual tests from test array
+function run_individ(){
+	echo Enter Device IP address and Press Enter;
+	read host;
+	echo Enter Test number from list:
+	echo "-----------------------------------"
+	list_tests;
+	echo ""
+	echo "Enter q to quit"
+	echo "-----------------------------------"
+
+	read input;	
+	while [ $input != 'q' ];
+	do
+		testcase=${testarr[input]};
+		node ~/bin/"Test Package"/dial-reference-2020/server/tests/js_tests/tests/$testcase.js --host $host --app $1 --loglevel debug;
+		echo Enter Test number from list:
+		echo "-----------------------------------"
+		list_tests;
+		echo ""
+		echo "Enter q to quit"
+		echo "-----------------------------------"
+		read input;	
+	done;	
+}
+
 echo ' _________________________________________________'; 
 echo '|						 |';
 echo '|		Enter Test option:	 	 |';
@@ -31,7 +73,9 @@ echo '|						 |';
 echo '|	1) Pacemaker				 |';
 echo '|	2) Websockets				 |';
 echo '|	3) Node.js compliance(depreciated) 	 |';
-echo '| 	4) Node.js compliance(2020)        	 |';
+echo '| 	4) YT Node.js compliance(2020)        	 |';
+echo '| 	5) YTTV Node.js compliance(2020)         |';
+echo '| 	4) YTKids Node.js compliance(2020)       |';
 echo '|					  	 |';
 echo '|	x) Exit				         |';
 echo '|________________________________________________|';
@@ -73,43 +117,7 @@ case $option in
 		;;
 		#Individual loop
 		b)
-		echo Enter Device IP address and Press Enter;
-		read host;
-		echo Enter Test number from list:
-		echo "-----------------------------------"
-
-		count=1;		
-		for i in "${testarr[@]}"
-		do
-			echo "$count: $i" 
-			count=$((count+1));
-		done;
-
-		echo ""
-		echo "Enter q to quit"
-		echo "-----------------------------------"
-
-		read input;	
-
-		while [ $input != 'q' ];
-		do
-			testcase=${testarr[input]};
-			node ~/bin/"Test Package"/dial-reference-2019/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
-			echo Enter Test number from list:
-			echo "-----------------------------------"
-
-			count=1;		
-			for i in "${testarr[@]}"
-			do
-				echo "$count: $i" 
-				count=$((count+1));
-			done;
-
-			echo ""
-			echo "Enter q to quit"
-			echo "-----------------------------------"
-			read input;	
-	done;	
+		run_individ;
 	;;
 	esac;;
 	4)
@@ -124,47 +132,49 @@ case $option in
 		a)
 		echo Enter Device IP address and Press Enter;
 		read host;
-		node ~/bin/"Test Package"/dial-reference-2020/server/tests/js_tests/tests/yt_cert_tests.js --host $host --app YouTube --loglevel debug;
+		run_all YouTube
 		;;
 		#Individual loop
 		b)
+		run_individ YouTube;	
+	;;
+	esac;;
+	5)
+	echo  '______________________________'
+	echo '|                             |' 
+	echo '|  a) Run All                 |' 
+	echo '|  b) Individual              |' 
+	echo  '______________________________'
+	read select
+	case $select in
+		#run all node.js
+		a)
 		echo Enter Device IP address and Press Enter;
 		read host;
-		echo Enter Test number from list:
-		echo "-----------------------------------"
-
-		count=1;		
-		for i in "${testarr[@]}"
-		do
-			echo "$count: $i" 
-			count=$((count+1));
-		done;
-
-		echo ""
-		echo "Enter q to quit"
-		echo "-----------------------------------"
-
-		read input;	
-
-		while [ $input != 'q' ];
-		do
-			testcase=${testarr[input]};
-			node ~/bin/"Test Package"/dial-reference-2020/server/tests/js_tests/tests/$testcase.js --host $host --app YouTube --loglevel debug;
-			echo Enter Test number from list:
-			echo "-----------------------------------"
-
-			count=1;		
-			for i in "${testarr[@]}"
-			do
-				echo "$count: $i" 
-				count=$((count+1));
-			done;
-
-			echo ""
-			echo "Enter q to quit"
-			echo "-----------------------------------"
-			read input;	
-	done;	
+		run_all YouTubeTV
+		;;
+		#Individual loop
+		b)
+		run_individ YouTubeTV;	
+	;;
+	esac;;
+	6)
+	echo  '______________________________'
+	echo '|                             |' 
+	echo '|  a) Run All                 |' 
+	echo '|  b) Individual              |' 
+	echo  '______________________________'
+	read select
+	case $select in
+		#run all node.js
+		a)
+		echo Enter Device IP address and Press Enter;
+		read host;
+		run_all YouTubeKids;
+		;;
+		#Individual loop
+		b)
+		run_individ YouTubeKids;	
 	;;
 	esac;;
 	x|X)
